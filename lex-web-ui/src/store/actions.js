@@ -717,6 +717,16 @@ export default {
       dialogState
     });
   },
+  resetHistory(context) {
+    context.commit("clearMessages");
+    context.commit("pushMessage", {
+      type: "bot",
+      text: context.state.config.lex.initialText,
+      alts: {
+        markdown: context.state.config.lex.initialText,
+      },
+    });
+  },
 
   /***********************************************************************
    *

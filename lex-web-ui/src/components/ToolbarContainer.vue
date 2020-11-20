@@ -7,54 +7,71 @@
     v-if="!isUiMinimized"
     v-on="toolbarClickHandler"
     v-bind:dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
-    v-bind:class="{ 'minimized': isUiMinimized }"
+    v-bind:class="{ minimized: isUiMinimized }"
     aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
   >
-    <img v-if="toolbarLogo" v-bind:src="toolbarLogo" alt="logo" aria-hidden="true"/>
+    <img
+      v-if="toolbarLogo"
+      v-bind:src="toolbarLogo"
+      alt="logo"
+      aria-hidden="true"
+    />
 
-    <v-menu v-if="isEnableLogin && !isForceLogin" offset-y>
-
-      <v-btn
-        slot="activator"
-        dark
-        icon
-        v-show="!isUiMinimized"
-      >
+    <v-menu v-if="showToolbarMenu" offset-y>
+      <v-btn slot="activator" dark icon v-show="!isUiMinimized">
         <v-icon>
-          {{'menu'}}
+          {{ "menu" }}
         </v-icon>
       </v-btn>
 
       <v-list>
-        <v-list-tile>
-          <v-list-tile-title v-if="isLoggedIn" v-on:click="requestLogout">{{ items[1].title }}</v-list-tile-title>
-          <v-list-tile-title v-if="!isLoggedIn" v-on:click="requestLogin">{{ items[0].title }}</v-list-tile-title>
+        <v-list-tile v-if="isEnableLogin">
+          <v-list-tile-title v-if="isLoggedIn" v-on:click="requestLogout">{{
+            items[1].title
+          }}</v-list-tile-title>
+          <v-list-tile-title v-if="!isLoggedIn" v-on:click="requestLogin">{{
+            items[0].title
+          }}</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile v-if="isSaveHistory">
+          <v-list-tile-title v-on:click="requestResetHistory">{{
+            items[2].title
+          }}</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>
 
-
     <div class="nav-buttons">
-      <v-btn small icon :disabled="isLexProcessing"
-             class="nav-button-prev"
-             v-on="prevNavEventHandlers"
-             v-on:click="onPrev"
-             v-show="hasPrevUtterance && !isUiMinimized && shouldRenderBackButton"
-             aria-label="go back to previous message"
+      <v-btn
+        small
+        icon
+        :disabled="isLexProcessing"
+        class="nav-button-prev"
+        v-on="prevNavEventHandlers"
+        v-on:click="onPrev"
+        v-show="hasPrevUtterance && !isUiMinimized && shouldRenderBackButton"
+        aria-label="go back to previous message"
       >
-        <v-icon>
-          arrow_back
-        </v-icon>
+        <v-icon> arrow_back </v-icon>
       </v-btn>
-      <v-tooltip v-model="prevNav" activator=".nav-button-prev" content-class="tooltip-custom" right>
+      <v-tooltip
+        v-model="prevNav"
+        activator=".nav-button-prev"
+        content-class="tooltip-custom"
+        right
+      >
         <span>Previous</span>
       </v-tooltip>
     </div>
 
-    <v-toolbar-title class="hidden-xs-and-down" v-on:click.stop="toggleMinimize" v-show="!isUiMinimized">
+    <v-toolbar-title
+      class="hidden-xs-and-down"
+      v-on:click.stop="toggleMinimize"
+      v-show="!isUiMinimized"
+    >
       <h1>{{ toolbarTitle }}</h1>
     </v-toolbar-title>
-    
+
     <v-toolbar-title class="hidden-xs-and-down" v-show="!isUiMinimized">
       {{ userName }}
     </v-toolbar-title>
@@ -67,7 +84,7 @@
       activator=".min-max-toggle"
       left
     >
-      <span id="min-max-tooltip">{{toolTipMinimize}}</span>
+      <span id="min-max-tooltip">{{ toolTipMinimize }}</span>
     </v-tooltip>
     <v-tooltip
       v-model="shouldShowHelpTooltip"
@@ -93,9 +110,7 @@
       icon
       class="help-toggle"
     >
-      <v-icon>
-        help_outline
-      </v-icon>
+      <v-icon> help_outline </v-icon>
     </v-btn>
 
     <v-btn
@@ -107,7 +122,7 @@
       aria-label="sound effects on off toggle"
     >
       <v-icon>
-        {{ isSFXOn ?  'volume_up' : 'volume_off' }}
+        {{ isSFXOn ? "volume_up" : "volume_off" }}
       </v-icon>
     </v-btn>
 
@@ -117,10 +132,10 @@
       v-on="tooltipEventHandlers"
       class="min-max-toggle"
       icon
-      v-bind:aria-label="(isUiMinimized) ? 'chat' : 'minimize chat window toggle'"
+      v-bind:aria-label="isUiMinimized ? 'chat' : 'minimize chat window toggle'"
     >
       <v-icon>
-        {{ isUiMinimized ?  'chat' : 'arrow_drop_down' }}
+        {{ isUiMinimized ? "chat" : "arrow_drop_down" }}
       </v-icon>
     </v-btn>
   </v-toolbar>
@@ -140,13 +155,10 @@ BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
 export default {
-  name: 'toolbar-container',
+  name: "toolbar-container",
   data() {
     return {
-      items: [
-        { title: 'Login' },
-        { title: 'Logout' },
-      ],
+      items: [{ title: "Login" }, { title: "Logout" }, { title: "Clean Chat" }],
       shouldShowTooltip: false,
       shouldShowHelpTooltip: false,
       shouldShowSFXTooltip: false,
@@ -181,7 +193,13 @@ export default {
       },
     };
   },
-  props: ['toolbarTitle', 'toolbarColor', 'toolbarLogo', 'isUiMinimized', 'userName'],
+  props: [
+    "toolbarTitle",
+    "toolbarColor",
+    "toolbarLogo",
+    "isUiMinimized",
+    "userName",
+  ],
   computed: {
     toolbarClickHandler() {
       if (this.isUiMinimized) {
@@ -190,7 +208,7 @@ export default {
       return null;
     },
     toolTipMinimize() {
-      return (this.isUiMinimized) ? 'maximize' : 'minimize';
+      return this.isUiMinimized ? "maximize" : "minimize";
     },
     isEnableLogin() {
       return this.$store.state.config.ui.enableLogin;
@@ -199,26 +217,40 @@ export default {
       return this.$store.state.config.ui.forceLogin;
     },
     hasPrevUtterance() {
-      return (this.$store.state.utteranceStack.length > 1);
+      return this.$store.state.utteranceStack.length > 1;
     },
     isLoggedIn() {
       return this.$store.state.isLoggedIn;
     },
+    isSaveHistory() {
+      return this.$store.state.config.ui.saveHistory;
+    },
     isLexProcessing() {
-      return this.$store.state.isBackProcessing || this.$store.state.lex.isProcessing;
+      return (
+        this.$store.state.isBackProcessing || this.$store.state.lex.isProcessing
+      );
     },
     shouldRenderHelpButton() {
       return !!this.$store.state.config.ui.helpIntent;
     },
     shouldRenderSfxButton() {
-      return this.$store.state.config.ui.enableSFX && this.$store.state.config.ui.messageSentSFX
-      && this.$store.state.config.ui.messageReceivedSFX;
+      return (
+        this.$store.state.config.ui.enableSFX &&
+        this.$store.state.config.ui.messageSentSFX &&
+        this.$store.state.config.ui.messageReceivedSFX
+      );
     },
     shouldRenderBackButton() {
       return this.$store.state.config.ui.backButton;
     },
     isSFXOn() {
       return this.$store.state.isSFXOn;
+    },
+    showToolbarMenu() {
+      return this.$store.state.config.ui.enableLogin |
+        this.$store.state.config.ui.saveHistory
+        ? true
+        : false;
     },
   },
   methods: {
@@ -251,54 +283,58 @@ export default {
     },
     toggleSFXMute() {
       this.onInputButtonHoverLeave();
-      this.$store.dispatch('toggleIsSFXOn');
+      this.$store.dispatch("toggleIsSFXOn");
     },
     toggleMinimize() {
       if (this.$store.state.isRunningEmbedded) {
         this.onInputButtonHoverLeave();
-        console.info("toggleMinimize");
-        this.$emit('toggleMinimizeUi');
+        this.$emit("toggleMinimizeUi");
       }
     },
     sendHelp() {
       const message = {
-        type: 'human',
+        type: "human",
         text: this.$store.state.config.ui.helpIntent,
       };
-      this.$store.dispatch('postTextMessage', message);
+      this.$store.dispatch("postTextMessage", message);
       this.shouldShowHelpTooltip = false;
     },
     onPrev() {
-      if (this.prevNav) { this.mouseOverPrev(); }
+      if (this.prevNav) {
+        this.mouseOverPrev();
+      }
       if (!this.$store.state.isBackProcessing) {
-        this.$store.commit('popUtterance');
+        this.$store.commit("popUtterance");
         const lastUtterance = this.$store.getters.lastUtterance();
         if (lastUtterance && lastUtterance.length > 0) {
           const message = {
-            type: 'human',
+            type: "human",
             text: lastUtterance,
           };
-          this.$store.commit('toggleBackProcessing');
-          this.$store.dispatch('postTextMessage', message);
+          this.$store.commit("toggleBackProcessing");
+          this.$store.dispatch("postTextMessage", message);
         }
       }
     },
     requestLogin() {
-      this.$emit('requestLogin');
+      this.$emit("requestLogin");
     },
     requestLogout() {
-      this.$emit('requestLogout');
+      this.$emit("requestLogout");
+    },
+    requestResetHistory() {
+      this.$store.dispatch("resetHistory");
     },
     toggleIsLoggedIn() {
       this.onInputButtonHoverLeave();
-      this.$emit('toggleIsLoggedIn');
+      this.$emit("toggleIsLoggedIn");
     },
   },
 };
 </script>
 <style>
 .toolbar-color {
-  background-color: #003DA5 !important;
+  background-color: #003da5 !important;
 }
 
 .nav-buttons {
@@ -310,6 +346,4 @@ export default {
   padding: 0;
   margin: 0;
 }
-
 </style>
-

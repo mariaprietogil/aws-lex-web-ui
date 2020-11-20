@@ -338,6 +338,13 @@ export default {
     state.isLoggedIn = bool;
   },
 
+  /**
+   * use to set the state of keep session history
+   */
+  setIsSaveHistory(state, bool) {
+    state.isSaveHistory = bool;
+  },
+
   reset (state) {
     const s = {
       messages: [],
@@ -428,5 +435,9 @@ export default {
   },
   toggleBackProcessing(state) {
     state.isBackProcessing = !state.isBackProcessing;
+  },
+  clearMessages(state) {
+    state.messages = [];
+    state.lex.sessionAttributes = {};
   }
 };

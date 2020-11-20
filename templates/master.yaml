@@ -85,6 +85,16 @@ Parameters:
             in the Lex Web Ui, and the Cognito login will be executed automatically. This implicitly sets
             EnableCognitoLogin to be true.
 
+    SaveHistory:
+        Type: String
+        Default: false
+        AllowedValues:
+            - true
+            - false
+        Description: >
+            This is an optional parameter, if set to True, the history of the chat is maintained over sessions. 
+            A item to clean the chat will appear at the menu.
+
     CodeBuildName:
         Type: String
         Description: >
@@ -281,6 +291,7 @@ Metadata:
                   - EnableMarkdownSupport
                   - ReInitSessionAttributesOnRestart
                   - ShowResponseCardTitle
+                  - SaveHistory
             - Label:
                 default: Cognito Parameters
               Parameters:
@@ -362,6 +373,7 @@ Resources:
                 WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
                 WebAppConfHelp: !Ref WebAppConfHelp
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
+                SaveHistory: !Ref SaveHistory
                 ShouldEnableCognitoLogin:
                   !If
                     - ShouldForceCognitoLogin
