@@ -84,13 +84,27 @@ export default {
     if (!context.state.messages.length) {
       context.commit("pushMessage", {
         type: "bot",
-        text: context.state.config.lex.initialText,
-        alts: {
-          markdown: context.state.config.lex.initialText,
-        },
+        text: context.state.config.lex.initialText
       });
     }
   },
+
+  // initMessageList(context) {
+  //   context.commit('pushMessage', {
+  //     type: 'bot',
+  //     text: context.state.config.lex.initialText,
+  //   });
+
+  //   if (!context.state.messages.length) {
+  //     context.commit('pushMessage', {
+  //       type: 'bot',
+  //       text: context.state.config.lex.initialText,
+  //       alts: {
+  //         markdown: context.state.config.lex.initialText
+  //       }
+  //     });
+  //   }
+  // },
   initLexClient(context, lexRuntimeClient) {
     lexClient = new LexClient({
       botName: context.state.config.lex.botName,
