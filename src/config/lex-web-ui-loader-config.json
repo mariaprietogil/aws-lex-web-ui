@@ -22,14 +22,14 @@
     "forceLogin": false,
     "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,
+    "saveHistory": false,
     "minButtonContent": "",
     "hideInputFieldsForButtonResponse": false,
     "directFocusToBotInput": false,
     "showDialogStateIcon": false,
     "backButton": false,
     "messageMenu": true,
-    "hideButtonMessageBubble": false,
-    "saveHistory": false
+    "hideButtonMessageBubble": false
   },
   "polly": {
     "voiceId": "Salli"

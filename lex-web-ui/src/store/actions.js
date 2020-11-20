@@ -81,10 +81,13 @@ export default {
     context.commit("mergeConfig", configObj);
   },
   initMessageList(context) {
-    if (context.state.config.lex.initialText.length > 0) {
+    if (!context.state.messages.length) {
       context.commit("pushMessage", {
         type: "bot",
-        text: context.state.config.lex.initialText
+        text: context.state.config.lex.initialText,
+        alts: {
+          markdown: context.state.config.lex.initialText,
+        },
       });
     }
   },
