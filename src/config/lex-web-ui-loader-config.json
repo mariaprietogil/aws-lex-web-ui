@@ -1,34 +1,34 @@
 {
   "region": "us-east-1",
   "cognito": {
-    "poolId": "us-east-1:e1660340-feed-463f-bd46-f2505db0b83e",
-    "appUserPoolClientId": "5k84tqbs7popssqpi96cv5su13",
-    "appUserPoolName": "CognitoUserPool-b9DAb8EgRPif",
-    "appDomainName": "https://lexkwebkuikpipelinekpublickidentitypoolconf197212235886.auth.us-east-1.amazoncognito.com",
+    "poolId": "us-east-1:2f9f4c44-4d08-4a4e-9e00-c66035f76a21",
     "aws_cognito_region": "us-east-1",
-    "region": "us-east-1",
-    "appUserPoolIdentityProvider": ""
+    "region": "us-east-1"
   },
   "lex": {
-    "botName": "WebUiOrderFlowers",
-    "botAlias": "$LATEST",
-    "initialText": "# This is the initial *message*",
-    "initialSpeechInstruction": "",
+    "botName": "OrderFlowers",
+    "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
+    "initialSpeechInstruction": "Say 'Order Flowers' to get started.",
     "region": "us-east-1"
   },
   "ui": {
     "parentOrigin": "http://localhost:8000",
-    "toolbarTitle": "Test Env",
+    "toolbarTitle": "Order Flowers",
     "toolbarLogo": "",
-    "positiveFeedbackIntent": "",
-    "negativeFeedbackIntent": "",
-    "helpIntent": "help",
-    "enableLogin": true,
+    "positiveFeedbackIntent": "Thumbs up",
+    "negativeFeedbackIntent": "Thumbs down",
+    "helpIntent": "Help",
+    "enableLogin": false,
+    "forceLogin": false,
     "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,
+    "minButtonContent": "",
     "hideInputFieldsForButtonResponse": false,
     "directFocusToBotInput": false,
-    "showDialogStateIcon": false
+    "showDialogStateIcon": false,
+    "backButton": false,
+    "messageMenu": true,
+    "hideButtonMessageBubble": false
   },
   "polly": {
     "voiceId": "Salli"

@@ -123,8 +123,20 @@ const configDefault = {
     // to allow runing embedded in a single origin setup
     parentOrigin: null,
 
+    // enable Sound Effects
+    enableSFX: false,
+
+    // mp3 audio file url for message send sound FX
+    messageSentSFX: 'send.mp3',
+
+    // mp3 audio file url for message received sound FX
+    messageReceivedSFX: 'received.mp3',
+
     // chat window text placeholder
     textInputPlaceholder: 'Type here or click on the mic',
+
+    // text shown when you hover over the minimized bot button
+    minButtonContent: '',
 
     toolbarColor: 'red',
 
@@ -165,6 +177,9 @@ const configDefault = {
     // Show the diaglog state icon, check or alert, in the text bubble
     showDialogStateIcon: true,
 
+    // Hide the message bubble on a response card button press
+    hideButtonMessageBubble: false,
+
     // shows a thumbs up and thumbs down button which can be clicked
     positiveFeedbackIntent: '',
     negativeFeedbackIntent: '',
@@ -188,8 +203,14 @@ const configDefault = {
     // title can be optionally disabled by setting this value to false
     shouldDisplayResponseCardTitle: true,
 
+    // Controls whether response card buttons are disabled after being clicked
+    shouldDisableClickedResponseCardButtons: true,
+
     // Optionally display login menu
     enableLogin: false,
+
+    // Optionally force login automatically when load
+    forceLogin: false,
 
     // Optionally direct input focus to Bot text input as needed
     directFocusToBotInput: false,

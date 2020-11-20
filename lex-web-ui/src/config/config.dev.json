@@ -3,8 +3,8 @@
     "poolId": "us-east-1:e1660340-feed-463f-bd46-f2505db0b83e"
   },
   "lex": {
-    "botName": "WebUiOrderFlowers",
-    "initialText": "This **IS** a _cool_ `markdown text`. <br><h1>hello</h1>",
+    "botName": "OrderFlowers",
+    "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
     "initialSpeechInstruction": "Say 'Order Flowers' to get started."
   },
   "polly": {
@@ -15,6 +15,7 @@
     "pageTitle": "Order Config Bot",
     "toolbarTitle": "Dev Environment",
     "enableLogin": true,
+    "forceLogin": true,
     "pushInitialTextOnRestart": false,
     "shouldDisplayResponseCardTitle": false,
     "showErrorIcon": true,
@@ -23,7 +24,8 @@
     "negativeFeedbackIntent": "Thumbs down",
     "helpIntent": "help",
     "hideInputFieldsForButtonResponse": true,
-    "AllowSuperDangerousHTMLInMessage": true
+    "backButton": false,
+    "messageMenu": true
   },
   "recorder": {
     "preset": "speech_recognition"

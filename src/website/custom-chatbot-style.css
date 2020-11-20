@@ -44,7 +44,8 @@
 }
 
 .message-text {
-  color: #000000
+  color: #000000;
+  width: 100%;
 }
 
 .headline {
@@ -71,4 +72,9 @@
 .input-group--text-field label {
     font-size: 14px !important;
 }
+
+
 */
+button.min-button {
+  border-radius: 60px;
+}

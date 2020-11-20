@@ -319,6 +319,10 @@ export default {
   toggleIsUiMinimized(state) {
     state.isUiMinimized = !state.isUiMinimized;
   },
+
+  toggleIsSFXOn(state) {
+    state.isSFXOn = !state.isSFXOn;
+  },
   /**
    * used to track the appearance of the input container
    * when the appearance of buttons should hide it
@@ -342,6 +346,30 @@ export default {
     Object.keys(s).forEach(key => {
         state[key] = s[key]
      })
+  },
+
+  /**
+   * Update tokens from cognito authentication
+   * @param state
+   * @param tokens
+   */
+  reapplyTokensToSessionAttributes(state) {
+    console.error('reapplyTokensToSessionAttributes');
+    if (state) {
+      console.error('setting attributes if they exist');
+      if (state.tokens.idtokenjwt) {
+        console.error('found idtokenjwt');
+        state.lex.sessionAttributes.idtokenjwt = state.tokens.idtokenjwt;
+      }
+      if (state.tokens.accesstokenjwt) {
+        console.error('found accesstokenjwt');
+        state.lex.sessionAttributes.accesstokenjwt = state.tokens.accesstokenjwt;
+      }
+      if (state.tokens.refreshtoken) {
+        console.error('found refreshtoken');
+        state.lex.sessionAttributes.refreshtoken = state.tokens.refreshtoken;
+      }
+    }
   },
 
   /**
