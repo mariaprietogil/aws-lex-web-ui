@@ -112,12 +112,7 @@ module.exports = (env) => {
       new CopyPlugin([
         // copy parent page
         {
-          from: path.join(basePath, 'src/website/parent.html'),
-          to: distDir,
-        },
-        // copy custom css
-        {
-          from: path.join(basePath, 'src/website/custom-chatbot-style.css'),
+          from: path.join(basePath, 'src/website'),
           to: distDir,
         },
         // copy lex-web-ui library
