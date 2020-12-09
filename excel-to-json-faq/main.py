@@ -40,7 +40,7 @@ def build_leaf(name, leaf):
     return res
 
 
-book = xlrd.open_workbook("FAQ2.1.xlsx")
+book = xlrd.open_workbook("FAQ-example.xlsx")
 base_sheet = book.sheet_by_index(0)
 
 #Number of columns on the left that are not used for the decision tree 
