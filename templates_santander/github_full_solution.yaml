@@ -1006,7 +1006,8 @@ Resources:
       ServiceToken: !GetAtt 
         - CFNLambda
         - Arn
-      Bucket: aws-bigdata-blog
+      Bucket: 
+          Ref: BootstrapBucket
       Key: !Join 
         - ''
         - - artifacts/aws-ai-qna-bot
@@ -1021,7 +1022,8 @@ Resources:
       ServiceToken: !GetAtt 
         - CFNLambda
         - Arn
-      SrcBucket: aws-bigdata-blog
+      SrcBucket: 
+          Ref: BootstrapBucket
       Key: !Join 
         - ''
         - - artifacts/aws-ai-qna-bot
@@ -1199,14 +1201,16 @@ Resources:
       ServiceToken: !GetAtt 
         - VersionLambda
         - Arn
-      Bucket: aws-bigdata-blog
+      Bucket: 
+          Ref: BootstrapBucket
       Key: !Sub artifacts/aws-ai-qna-bot/lambda/cfn.zip
       BuildDate: '2020-10-03T02:01:28.537Z'
   CFNLambda:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        S3Bucket: aws-bigdata-blog
+        S3Bucket: 
+          Ref: BootstrapBucket
         S3Key: !Join 
           - ''
           - - artifacts/aws-ai-qna-bot
@@ -1923,7 +1927,8 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        S3Bucket: aws-bigdata-blog
+        S3Bucket: 
+          Ref: BootstrapBucket
         S3Key: !Sub artifacts/aws-ai-qna-bot/lambda/proxy-es.zip
         S3ObjectVersion: !Ref ESProxyCodeVersion
       Environment:
@@ -2267,7 +2272,7 @@ Resources:
     Condition: BuildExamples
     Properties:
       TemplateURL: !Sub >-
-        http://aws-bigdata-blog.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/examples.json
+        http://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/examples.json
       Parameters:
         QnAType: !GetAtt 
           - Var
@@ -2281,7 +2286,8 @@ Resources:
         ESAddress: !GetAtt 
           - ESVar
           - ESAddress
-        BootstrapBucket: aws-bigdata-blog
+        BootstrapBucket: 
+          Ref: BootstrapBucket
         BootstrapPrefix: artifacts/aws-ai-qna-bot
         FeedbackFirehose: !GetAtt 
           - FeedbackFirehose
@@ -2305,13 +2311,14 @@ Resources:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       TemplateURL: !Sub >-
-        http://aws-bigdata-blog.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/export.json
+        http://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/export.json
       Parameters:
         CFNLambda: !GetAtt 
           - CFNLambda
           - Arn
         CFNInvokePolicy: !Ref CFNInvokePolicy
-        BootstrapBucket: aws-bigdata-blog
+        BootstrapBucket: 
+          Ref: BootstrapBucket
         BootstrapPrefix: artifacts/aws-ai-qna-bot
         VarIndex: !GetAtt 
           - Var
@@ -2342,13 +2349,14 @@ Resources:
       - ElasticsearchDomainUpdate
     Properties:
       TemplateURL: !Sub >-
-        http://aws-bigdata-blog.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/import.json
+        http://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/import.json
       Parameters:
         CFNLambda: !GetAtt 
           - CFNLambda
           - Arn
         CFNInvokePolicy: !Ref CFNInvokePolicy
-        BootstrapBucket: aws-bigdata-blog
+        BootstrapBucket: 
+          Ref: BootstrapBucket
         BootstrapPrefix: artifacts/aws-ai-qna-bot
         EsEndpoint: !GetAtt 
           - ESVar
@@ -2552,14 +2560,16 @@ Resources:
       ServiceToken: !GetAtt 
         - CFNLambda
         - Arn
-      Bucket: aws-bigdata-blog
+      Bucket: 
+          Ref: BootstrapBucket
       Key: !Sub artifacts/aws-ai-qna-bot/lambda/fulfillment.zip
       BuildDate: '2020-10-03T02:01:28.736Z'
   FulfillmentLambda:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        S3Bucket: aws-bigdata-blog
+        S3Bucket: 
+          Ref: BootstrapBucket
         S3Key: !Sub artifacts/aws-ai-qna-bot/lambda/fulfillment.zip
         S3ObjectVersion: !Ref FulfillmentCodeVersion
       Environment:
@@ -2801,7 +2811,8 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        S3Bucket: aws-bigdata-blog
+        S3Bucket: 
+          Ref: BootstrapBucket
         S3Key: !Sub artifacts/aws-ai-qna-bot/lambda/lex-build.zip
         S3ObjectVersion: !Ref LexBuildCodeVersion
       Environment:
@@ -2958,7 +2969,8 @@ Resources:
       ServiceToken: !GetAtt 
         - CFNLambda
         - Arn
-      Bucket: aws-bigdata-blog
+      Bucket: 
+          Ref: BootstrapBucket
       Key: !Sub artifacts/aws-ai-qna-bot/lambda/lex-build.zip
       BuildDate: '2020-10-03T02:01:28.737Z'
   LexBuildInvokePolicy:
@@ -3106,14 +3118,16 @@ Resources:
       ServiceToken: !GetAtt 
         - CFNLambda
         - Arn
-      Bucket: aws-bigdata-blog
+      Bucket: 
+          Ref: BootstrapBucket
       Key: !Sub artifacts/aws-ai-qna-bot/lambda/proxy-es.zip
       BuildDate: '2020-10-03T02:01:28.738Z'
   UtteranceLambda:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        S3Bucket: aws-bigdata-blog
+        S3Bucket: 
+          Ref: BootstrapBucket
         S3Key: !Sub artifacts/aws-ai-qna-bot/lambda/proxy-es.zip
         S3ObjectVersion: !Ref ESProxyCodeVersion
       Environment:
@@ -3140,7 +3154,8 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        S3Bucket: aws-bigdata-blog
+        S3Bucket: 
+          Ref: BootstrapBucket
         S3Key: !Sub artifacts/aws-ai-qna-bot/lambda/proxy-es.zip
         S3ObjectVersion: !Ref ESProxyCodeVersion
       Environment:
@@ -3165,7 +3180,8 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        S3Bucket: aws-bigdata-blog
+        S3Bucket: 
+          Ref: BootstrapBucket
         S3Key: !Sub artifacts/aws-ai-qna-bot/lambda/proxy-es.zip
         S3ObjectVersion: !Ref ESProxyCodeVersion
       Environment:
@@ -3212,7 +3228,8 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        S3Bucket: aws-bigdata-blog
+        S3Bucket: 
+          Ref: BootstrapBucket
         S3Key: !Sub artifacts/aws-ai-qna-bot/lambda/proxy-es.zip
         S3ObjectVersion: !Ref ESProxyCodeVersion
       Environment:
@@ -3232,7 +3249,8 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        S3Bucket: aws-bigdata-blog
+        S3Bucket: 
+          Ref: BootstrapBucket
         S3Key: !Sub artifacts/aws-ai-qna-bot/lambda/proxy-es.zip
         S3ObjectVersion: !Ref ESProxyCodeVersion
       Environment:
@@ -3253,7 +3271,8 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        S3Bucket: aws-bigdata-blog
+        S3Bucket: 
+          Ref: BootstrapBucket
         S3Key: !Sub artifacts/aws-ai-qna-bot/lambda/proxy-es.zip
         S3ObjectVersion: !Ref ESProxyCodeVersion
       Environment:
@@ -6669,7 +6688,8 @@ Resources:
       ServiceToken: !GetAtt 
         - CFNLambda
         - Arn
-      SrcBucket: aws-bigdata-blog
+      SrcBucket: 
+          Ref: BootstrapBucket
       Key: !Join 
         - ''
         - - artifacts/aws-ai-qna-bot
@@ -6721,14 +6741,16 @@ Resources:
       ServiceToken: !GetAtt 
         - CFNLambda
         - Arn
-      Bucket: aws-bigdata-blog
+      Bucket: 
+          Ref: BootstrapBucket
       Key: !Sub artifacts/aws-ai-qna-bot/lambda/schema.zip
       BuildDate: '2020-10-03T02:01:28.739Z'
   SchemaLambda:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        S3Bucket: aws-bigdata-blog
+        S3Bucket: 
+          Ref: BootstrapBucket
         S3Key: !Sub artifacts/aws-ai-qna-bot/lambda/schema.zip
         S3ObjectVersion: !Ref SchemaLambdaCodeVersion
       Handler: index.handler
@@ -6882,7 +6904,7 @@ Resources:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       TemplateURL: !Sub >-
-        http://aws-bigdata-blog.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/testall.json
+        http://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/testall.json
       Parameters:
         CFNLambda: !GetAtt 
           - CFNLambda
@@ -6890,7 +6912,8 @@ Resources:
         CFNInvokePolicy: !Ref CFNInvokePolicy
         BotName: !Ref LexBot
         BotAlias: !Ref VersionAlias
-        BootstrapBucket: aws-bigdata-blog
+        BootstrapBucket: 
+          Ref: BootstrapBucket
         BootstrapPrefix: artifacts/aws-ai-qna-bot
         VarIndex: !GetAtt 
           - Var
@@ -7532,7 +7555,7 @@ Parameters:
   # See the README.md file for instructions on how to use your own bucket.
   BootstrapBucket:
     Type: String
-    Default: aws-bigdata-blog
+    Default: aws-bigdata-blog-replica-eu-west-1
     Description: >
         S3 bucket containing pre-staged nested templates and source artifacts
 
