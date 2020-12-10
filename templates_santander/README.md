@@ -21,6 +21,7 @@ There are 5 CloudFormation templates
 * Template that deploys only the UI solution (codecommit). You will need to give Input Parameter "Bot name" to be linked with the UI
 
     This allows to have multiple UI linked to the same Chatbot
+    
 * Template that deploys only the QnA chatbot
 
 ## Run the Templates:

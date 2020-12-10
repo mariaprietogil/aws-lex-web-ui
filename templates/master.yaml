@@ -461,6 +461,6 @@ Outputs:
     CognitoUserPoolClientId:
         Condition: NeedsCognito
         Description: Cognito User Pool Client Id
-        Value: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+        Value: !xGetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
         Export:
           Name: !Join [":", [!Ref "AWS::StackName", CognitoUserPoolClientId]]

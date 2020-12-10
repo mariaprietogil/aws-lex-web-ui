@@ -5,7 +5,7 @@ This Code process and excel file with a decition tree extructure to create a jso
 
 There are some requirements for the excel:
 
- * The Excel file should be in the same folder that main.py
+ * The Excel file should be in the same folder that main.py (you can change the code to point to other location if needed)
 
  * NUMBER OF COLUMNS MATTER, DELETE ON THE EXCEL THE UNNECESARY RIGHT COLUMNS.
 

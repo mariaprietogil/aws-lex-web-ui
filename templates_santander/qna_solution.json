@@ -60,7 +60,7 @@
       "Type": "Custom::S3Version",
       "Properties": {
         "ServiceToken": {"Fn::GetAtt": ["CFNLambda", "Arn"]},
-        "Bucket": "aws-bigdata-blog",
+        "Bucket": {"Ref": "BootstrapBucket"},
         "Key": {"Fn::Join": ["", ["artifacts/aws-ai-qna-bot", "/assets.zip"]]},
         "BuildDate": "2020-11-09T02:53:31.018Z"
       }
@@ -71,7 +71,7 @@
       "DependsOn": ["AssetClear"],
       "Properties": {
         "ServiceToken": {"Fn::GetAtt": ["CFNLambda", "Arn"]},
-        "SrcBucket": "aws-bigdata-blog",
+        "SrcBucket": {"Ref": "BootstrapBucket"},
         "Key": {"Fn::Join": ["", ["artifacts/aws-ai-qna-bot", "/assets.zip"]]},
         "DstBucket": {"Ref": "AssetBucket"},
         "version": {"Ref": "AssetZipVersion"}
@@ -189,7 +189,7 @@
       "Type": "Custom::S3Version",
       "Properties": {
         "ServiceToken": {"Fn::GetAtt": ["VersionLambda", "Arn"]},
-        "Bucket": "aws-bigdata-blog",
+        "Bucket": {"Ref": "BootstrapBucket"},
         "Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/cfn.zip"},
         "BuildDate": "2020-11-09T02:53:31.019Z"
       }
@@ -198,7 +198,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "aws-bigdata-blog",
+          "S3Bucket": {"Ref": "BootstrapBucket"},
           "S3Key": {
             "Fn::Join": ["", ["artifacts/aws-ai-qna-bot", "/lambda/cfn.zip"]]
           },
@@ -796,7 +796,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "aws-bigdata-blog",
+          "S3Bucket": {"Ref": "BootstrapBucket"},
           "S3Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/proxy-es.zip"},
           "S3ObjectVersion": {"Ref": "ESProxyCodeVersion"}
         },
@@ -1171,14 +1171,14 @@
       "Condition": "BuildExamples",
       "Properties": {
         "TemplateURL": {
-          "Fn::Sub": "http://aws-bigdata-blog.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/examples.json"
+          "Fn::Sub": "http://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/examples.json"
         },
         "Parameters": {
           "QnAType": {"Fn::GetAtt": ["Var", "QnAType"]},
           "QuizType": {"Fn::GetAtt": ["Var", "QuizType"]},
           "Index": {"Fn::GetAtt": ["Var", "QnaIndex"]},
           "ESAddress": {"Fn::GetAtt": ["ESVar", "ESAddress"]},
-          "BootstrapBucket": "aws-bigdata-blog",
+          "BootstrapBucket": {"Ref": "BootstrapBucket"},
           "BootstrapPrefix": "artifacts/aws-ai-qna-bot",
           "FeedbackFirehose": {"Fn::GetAtt": ["FeedbackFirehose", "Arn"]},
           "FeedbackFirehoseName": {"Ref": "FeedbackFirehose"},
@@ -1195,12 +1195,12 @@
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
         "TemplateURL": {
-          "Fn::Sub": "http://aws-bigdata-blog.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/export.json"
+          "Fn::Sub": "http://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/export.json"
         },
         "Parameters": {
           "CFNLambda": {"Fn::GetAtt": ["CFNLambda", "Arn"]},
           "CFNInvokePolicy": {"Ref": "CFNInvokePolicy"},
-          "BootstrapBucket": "aws-bigdata-blog",
+          "BootstrapBucket": {"Ref": "BootstrapBucket"},
           "BootstrapPrefix": "artifacts/aws-ai-qna-bot",
           "VarIndex": {"Fn::GetAtt": ["Var", "QnaIndex"]},
           "EsEndpoint": {"Fn::GetAtt": ["ESVar", "ESAddress"]},
@@ -1224,12 +1224,12 @@
       "DependsOn": ["PreUpgradeExport", "ElasticsearchDomainUpdate"],
       "Properties": {
         "TemplateURL": {
-          "Fn::Sub": "http://aws-bigdata-blog.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/import.json"
+          "Fn::Sub": "http://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/import.json"
         },
         "Parameters": {
           "CFNLambda": {"Fn::GetAtt": ["CFNLambda", "Arn"]},
           "CFNInvokePolicy": {"Ref": "CFNInvokePolicy"},
-          "BootstrapBucket": "aws-bigdata-blog",
+          "BootstrapBucket": {"Ref": "BootstrapBucket"},
           "BootstrapPrefix": "artifacts/aws-ai-qna-bot",
           "EsEndpoint": {"Fn::GetAtt": ["ESVar", "ESAddress"]},
           "EsProxyLambda": {"Fn::GetAtt": ["ESProxyLambda", "Arn"]},
@@ -1432,7 +1432,7 @@
       "Type": "Custom::S3Version",
       "Properties": {
         "ServiceToken": {"Fn::GetAtt": ["CFNLambda", "Arn"]},
-        "Bucket": "aws-bigdata-blog",
+        "Bucket": {"Ref": "BootstrapBucket"},
         "Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/fulfillment.zip"},
         "BuildDate": "2020-11-09T02:53:31.221Z"
       }
@@ -1441,7 +1441,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "aws-bigdata-blog",
+          "S3Bucket": {"Ref": "BootstrapBucket"},
           "S3Key": {
             "Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/fulfillment.zip"
           },
@@ -1717,7 +1717,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "aws-bigdata-blog",
+          "S3Bucket": {"Ref": "BootstrapBucket"},
           "S3Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/lex-build.zip"},
           "S3ObjectVersion": {"Ref": "LexBuildCodeVersion"}
         },
@@ -1796,7 +1796,7 @@
       "Type": "Custom::S3Version",
       "Properties": {
         "ServiceToken": {"Fn::GetAtt": ["CFNLambda", "Arn"]},
-        "Bucket": "aws-bigdata-blog",
+        "Bucket": {"Ref": "BootstrapBucket"},
         "Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/lex-build.zip"},
         "BuildDate": "2020-11-09T02:53:31.222Z"
       }
@@ -1988,7 +1988,7 @@
       "Type": "Custom::S3Version",
       "Properties": {
         "ServiceToken": {"Fn::GetAtt": ["CFNLambda", "Arn"]},
-        "Bucket": "aws-bigdata-blog",
+        "Bucket": {"Ref": "BootstrapBucket"},
         "Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/proxy-es.zip"},
         "BuildDate": "2020-11-09T02:53:31.223Z"
       }
@@ -1997,7 +1997,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "aws-bigdata-blog",
+          "S3Bucket": {"Ref": "BootstrapBucket"},
           "S3Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/proxy-es.zip"},
           "S3ObjectVersion": {"Ref": "ESProxyCodeVersion"}
         },
@@ -2021,7 +2021,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "aws-bigdata-blog",
+          "S3Bucket": {"Ref": "BootstrapBucket"},
           "S3Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/proxy-es.zip"},
           "S3ObjectVersion": {"Ref": "ESProxyCodeVersion"}
         },
@@ -2043,7 +2043,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "aws-bigdata-blog",
+          "S3Bucket": {"Ref": "BootstrapBucket"},
           "S3Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/proxy-es.zip"},
           "S3ObjectVersion": {"Ref": "ESProxyCodeVersion"}
         },
@@ -2090,7 +2090,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "aws-bigdata-blog",
+          "S3Bucket": {"Ref": "BootstrapBucket"},
           "S3Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/proxy-es.zip"},
           "S3ObjectVersion": {"Ref": "ESProxyCodeVersion"}
         },
@@ -2109,7 +2109,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "aws-bigdata-blog",
+          "S3Bucket": {"Ref": "BootstrapBucket"},
           "S3Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/proxy-es.zip"},
           "S3ObjectVersion": {"Ref": "ESProxyCodeVersion"}
         },
@@ -2131,7 +2131,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "aws-bigdata-blog",
+          "S3Bucket": {"Ref": "BootstrapBucket"},
           "S3Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/proxy-es.zip"},
           "S3ObjectVersion": {"Ref": "ESProxyCodeVersion"}
         },
@@ -4943,7 +4943,7 @@
       "Type": "Custom::S3Unzip",
       "Properties": {
         "ServiceToken": {"Fn::GetAtt": ["CFNLambda", "Arn"]},
-        "SrcBucket": "aws-bigdata-blog",
+        "SrcBucket": {"Ref": "BootstrapBucket"},
         "Key": {"Fn::Join": ["", ["artifacts/aws-ai-qna-bot", "/website.zip"]]},
         "DstBucket": {"Ref": "Bucket"},
         "buildDate": "2020-11-09T02:53:31.224Z"
@@ -5008,7 +5008,7 @@
       "Type": "Custom::S3Version",
       "Properties": {
         "ServiceToken": {"Fn::GetAtt": ["CFNLambda", "Arn"]},
-        "Bucket": "aws-bigdata-blog",
+        "Bucket": {"Ref": "BootstrapBucket"},
         "Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/schema.zip"},
         "BuildDate": "2020-11-09T02:53:31.225Z"
       }
@@ -5017,7 +5017,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "aws-bigdata-blog",
+          "S3Bucket": {"Ref": "BootstrapBucket"},
           "S3Key": {"Fn::Sub": "artifacts/aws-ai-qna-bot/lambda/schema.zip"},
           "S3ObjectVersion": {"Ref": "SchemaLambdaCodeVersion"}
         },
@@ -5132,14 +5132,14 @@
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
         "TemplateURL": {
-          "Fn::Sub": "http://aws-bigdata-blog.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/testall.json"
+          "Fn::Sub": "http://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/artifacts/aws-ai-qna-bot/templates/testall.json"
         },
         "Parameters": {
           "CFNLambda": {"Fn::GetAtt": ["CFNLambda", "Arn"]},
           "CFNInvokePolicy": {"Ref": "CFNInvokePolicy"},
           "BotName": {"Ref": "LexBot"},
           "BotAlias": {"Ref": "VersionAlias"},
-          "BootstrapBucket": "aws-bigdata-blog",
+          "BootstrapBucket": {"Ref": "BootstrapBucket"},
           "BootstrapPrefix": "artifacts/aws-ai-qna-bot",
           "VarIndex": {"Fn::GetAtt": ["Var", "QnaIndex"]},
           "EsEndpoint": {"Fn::GetAtt": ["ESVar", "ESAddress"]},
@@ -5572,6 +5572,11 @@
     "CustomSettingsSSMParameterName": {"Value": {"Ref": "CustomQnABotSettings"}}
   },
   "Parameters": {
+    "BootstrapBucket": {
+      "Type": "String",
+      "Description": "S3 bucket containing pre-staged nested templates and source artifacts",
+      "Default": "aws-bigdata-blog-replica-eu-west-1"
+    },
     "Email": {
       "Type": "String",
       "Description": "Email address for the admin user. Will be used for loging in and for setting the admin password. This email will receive the temporary password for the admin user.",

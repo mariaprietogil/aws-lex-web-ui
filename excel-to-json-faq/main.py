@@ -30,7 +30,7 @@ def build_leaf(name, leaf):
 
     """
     res = {name:"last"}
-    print(leaf.items())
+    #print(leaf.items())
     # add children node if the leaf actually has any children
     if len(leaf.keys()) == 1:
         res[name] = [build_leaf(k, v) for k, v in leaf.items()]
@@ -119,7 +119,7 @@ def fillQnA(d):
                 continue
             
 fillQnA(res[0])
-print(qna)
+#print(qna)
 
 
 
