@@ -7,7 +7,7 @@
   },
   "lex": {
     "botName": "OrderFlowers",
-    "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
+    "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or ask Claudiu",
     "initialSpeechInstruction": "Say 'Order Flowers' to get started.",
     "region": "us-east-1"
   },
