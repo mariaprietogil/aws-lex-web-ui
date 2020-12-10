@@ -6,14 +6,14 @@
     "region": "us-east-1"
   },
   "lex": {
-    "botName": "OrderFlowers",
-    "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or ask Claudiu",
-    "initialSpeechInstruction": "Say 'Order Flowers' to get started.",
+    "botName": "SantanderChatbot",
+    "initialText": "Welcome to the Santander Chatbot ask me anyblabla",
+    "initialSpeechInstruction": "Say 'Order Flowers' to get started",
     "region": "us-east-1"
   },
   "ui": {
     "parentOrigin": "http://localhost:8000",
-    "toolbarTitle": "Santander Nice2",
+    "toolbarTitle": "Santander Chatbot Spain",
     "toolbarLogo": "",
     "positiveFeedbackIntent": "Thumbs up",
     "negativeFeedbackIntent": "Thumbs down",
