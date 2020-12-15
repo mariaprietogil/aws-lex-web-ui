@@ -7,14 +7,14 @@
   },
   "lex": {
     "botName": "SantanderChatbot",
-    "initialText": "Welcome to the Santander Chatbot ask me anyblabla",
+    "initialText": "Welcome to the Santander Chatbot ask me anything",
     "initialSpeechInstruction": "Say 'Order Flowers' to get started",
     "region": "us-east-1"
   },
   "ui": {
     "parentOrigin": "http://localhost:8000",
     "toolbarTitle": "Santander Chatbot Spain",
-    "toolbarLogo": "",
+    "toolbarLogo": "/csgs/Satellite?blobcol=urldata&amp;blobheadername1=content-type&amp;blobheadername2=Content-Disposition&amp;blobheadername3=appID&amp;blobheadervalue1=image%2Fpng&amp;blobheadervalue2=inline%3Bfilename%3D217%2F253%2F01_Logo_SAD-%28141x36px%29.png&amp;blobheadervalue3=gruposantander.ip.CFSantAlDia&amp;blobkey=id&amp;blobtable=MungoBlobs&amp;blobwhere=1433768175594&amp;ssbinary=true",
     "positiveFeedbackIntent": "Thumbs up",
     "negativeFeedbackIntent": "Thumbs down",
     "helpIntent": "Help",
